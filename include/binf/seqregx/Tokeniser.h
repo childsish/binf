@@ -2,7 +2,6 @@
 #define BINF_TOKENISER_H
 
 #include <unordered_map>
-#include <vector>
 
 #include "ITokeniser.h"
 
@@ -15,7 +14,7 @@ public:
 
   explicit Tokeniser(const std::unordered_map<std::string, std::string> &types = DEFAULT_TYPES);
 
-  std::vector<std::pair<std::string, std::string>> tokenise(const std::string &string) const override;
+  std::list<std::pair<std::string, std::string>> tokenise(const std::string &string) const override;
 private:
   std::unordered_map<char, std::string> type_map;
 };

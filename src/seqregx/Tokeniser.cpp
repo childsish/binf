@@ -1,8 +1,5 @@
 #include <binf/seqregx/Tokeniser.h>
 
-
-#include <iostream>
-
 namespace binf::seqregx {
 
 const std::unordered_map<std::string, std::string> Tokeniser::DEFAULT_TYPES{
@@ -22,8 +19,8 @@ Tokeniser::Tokeniser(const std::unordered_map<std::string, std::string> &types) 
       type_map[character] = item.first;
 }
 
-std::vector<std::pair<std::string, std::string>> Tokeniser::tokenise(const std::string &string) const {
-  std::vector<std::pair<std::string, std::string>> tokens;
+std::list<std::pair<std::string, std::string>> Tokeniser::tokenise(const std::string &string) const {
+  std::list<std::pair<std::string, std::string>> tokens;
   int fr = 0;
   while (fr < string.length()) {
     auto type = type_map.at(string[fr]);
