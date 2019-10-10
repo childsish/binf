@@ -15,6 +15,7 @@ class Expression {
 public:
   explicit Expression(std::vector<Term> terms);
 
+
 private:
   std::vector<Term> terms;
 };

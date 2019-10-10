@@ -11,9 +11,9 @@ Parser::Parser(std::unique_ptr<ITokeniser> tokeniser) :
 {
 }
 
-void Parser::parse(const std::string &expression) const {
+Expression Parser::parse(const std::string &expression) const {
   auto tokens = this->tokeniser->tokenise(expression);
-  this->parse_expression(tokens);
+  return this->parse_expression(tokens);
 }
 
 Expression Parser::parse_expression(std::list<Token> &tokens) const {

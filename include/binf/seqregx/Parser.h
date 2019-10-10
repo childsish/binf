@@ -32,7 +32,7 @@ class Parser {
 public:
   explicit Parser(std::unique_ptr<ITokeniser> tokeniser = std::make_unique<Tokeniser>());
 
-  void parse(const std::string &expression) const;
+  [[nodiscard]] Expression parse(const std::string &expression) const;
 private:
   Expression parse_expression(std::list<Token> &tokens) const;
 
