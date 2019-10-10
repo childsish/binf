@@ -11,7 +11,7 @@
 #include <binf/os/path.h>
 #include <binf/seqregx/Parser.h>
 
-using Filter = std::tuple<binf::seqregx::Expression, int>;
+using Filter = std::tuple<binf::seqregx::Matcher, int>;
 
 bool has_next(std::vector<binf::fastq::FastqIterator> &iterators, const std::vector<binf::fastq::FastqFile> &files) {
   assert(files.size() == iterators.size());
@@ -50,9 +50,8 @@ int main(int argc, const char** argv) {
       files.emplace_back(argv[i]);
     }
   }
-  return 1;
 
-  if (outdir.empty())
+  /*if (outdir.empty())
     throw std::runtime_error("No output directory provided.");
 
   std::transform(files.begin(), files.end(), std::back_inserter(iterators),
@@ -73,5 +72,5 @@ int main(int argc, const char** argv) {
         output_files[i] << *iterators[i];
     for (auto &iterator : iterators)
       ++iterator;
-  }
+  }*/
 }

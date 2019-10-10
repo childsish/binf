@@ -11,16 +11,16 @@ Parser::Parser(std::unique_ptr<ITokeniser> tokeniser) :
 {
 }
 
-Expression Parser::parse(const std::string &expression) const {
+Matcher Parser::parse(const std::string &expression) const {
   auto tokens = this->tokeniser->tokenise(expression);
   return this->parse_expression(tokens);
 }
 
-Expression Parser::parse_expression(std::list<Token> &tokens) const {
+Matcher Parser::parse_expression(std::list<Token> &tokens) const {
   std::vector<Term> terms;
   while (!tokens.empty())
     terms.emplace_back(this->parse_term(tokens));
-  return Expression(std::move(terms));
+  return Matcher(std::move(terms));
 }
 
 Term Parser::parse_term(std::list<Token> &tokens) const {

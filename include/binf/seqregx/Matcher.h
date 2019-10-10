@@ -1,5 +1,5 @@
-#ifndef BINF_EXPRESSION_H
-#define BINF_EXPRESSION_H
+#ifndef BINF_MATCHER_H
+#define BINF_MATCHER_H
 
 #include <string>
 #include <tuple>
@@ -11,9 +11,9 @@ namespace binf::seqregx {
 using Cardinality = std::pair<int, int>;
 using Term = std::tuple<std::string, int, Cardinality>;
 
-class Expression {
+class Matcher {
 public:
-  explicit Expression(std::vector<Term> terms);
+  explicit Matcher(std::vector<Term> terms);
 
 
 private:
@@ -23,4 +23,4 @@ private:
 }
 
 
-#endif //BINF_EXPRESSION_H
+#endif //BINF_MATCHER_H

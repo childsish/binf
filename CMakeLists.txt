@@ -8,7 +8,7 @@ add_library(binflib
   src/io/fastq/FastqEntry.cpp
   src/io/fastq/FastqFile.cpp
   src/os/path.cpp include/binf/os/path.h
-  src/seqregx/Expression.cpp include/binf/seqregx/Expression.h
+  src/seqregx/Matcher.cpp include/binf/seqregx/Matcher.h
   src/seqregx/Tokeniser.cpp include/binf/seqregx/Tokeniser.h
   src/seqregx/Parser.cpp include/binf/seqregx/Parser.h)
 target_include_directories(binflib PRIVATE

@@ -4,12 +4,12 @@
 #include <string>
 #include <memory>
 
-#include "Expression.h"
+#include "Matcher.h"
 #include "Tokeniser.h"
 
 /**
  * # Grammar
- * expression ::= <term> | <expression> <term>
+ * matcher ::= <term> | <matcher> <term>
  * term ::= <sequence_term> |
  *   <sequence_term> <mismatch_term> |
  *   <sequence_term> <cardinality_term> |
@@ -32,9 +32,9 @@ class Parser {
 public:
   explicit Parser(std::unique_ptr<ITokeniser> tokeniser = std::make_unique<Tokeniser>());
 
-  [[nodiscard]] Expression parse(const std::string &expression) const;
+  [[nodiscard]] Matcher parse(const std::string &expression) const;
 private:
-  Expression parse_expression(std::list<Token> &tokens) const;
+  Matcher parse_expression(std::list<Token> &tokens) const;
 
   Term parse_term(std::list<Token> &tokens) const;
 
