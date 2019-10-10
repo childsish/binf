@@ -10,7 +10,8 @@
 /**
  * # Grammar
  * matcher ::= <term> | <matcher> <term>
- * term ::= <sequence_term> |
+ * term ::= <wildcard> |
+ *   <sequence_term> |
  *   <sequence_term> <mismatch_term> |
  *   <sequence_term> <cardinality_term> |
  *   <sequence_term> <mismatch_term> <cardinality_term>
@@ -23,7 +24,7 @@
  * mismatch_term ::= '<' <integer> '>'
  * integer ::= <digit> | <integer> <digit>
  * digit ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
- * cardinality_term ::= '{' <integer> '}' | '{' <integer> ',' <integer> '}'
+ * cardinality_term ::= '?' | '+' | '*' | '{' <integer> '}' | '{' <integer> ',' <integer> '}'
  */
 
 namespace binf::seqregx {
@@ -42,7 +43,7 @@ private:
 
   Cardinality parse_cardinality_term(std::list<Token> &tokens) const;
 
-  void expect(const std::string &expected, const Token &observed) const;
+  void expect(const std::vector<std::string> &expected, const Token &observed) const;
 
   const std::unique_ptr<ITokeniser> tokeniser;
 };
