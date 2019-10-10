@@ -2,7 +2,6 @@
 #include <cassert>
 #include <cstring>
 #include <iostream>
-#include <sstream>
 #include <string>
 #include <vector>
 
@@ -10,8 +9,9 @@
 #include <binf/algorithms/bitap.h>
 #include <binf/io/fastq/FastqFile.h>
 #include <binf/os/path.h>
+#include <binf/seqregx/Parser.h>
 
-using Filter = std::tuple<std::string, int, int>;
+using Filter = std::tuple<std::string, int>;
 
 bool has_next(std::vector<binf::fastq::FastqIterator> &iterators, const std::vector<binf::fastq::FastqFile> &files) {
   assert(files.size() == iterators.size());
@@ -29,10 +29,10 @@ int main(int argc, const char** argv) {
   std::string outdir;
 
   for (int i = 1; i < argc; ++i) {
-    if (std::strcmp(argv[i], "-f") == 0) {
-      assert(i + 3 < argc);
-      filters.emplace_back(argv[i + 1], strtol(argv[i + 2], NULL, 10), strtol(argv[i + 3], NULL, 10));
-      i += 3;
+    if (std::strcmp(argv[i], "-m") == 0 || std::strcmp(argv[i], "--match") == 0) {
+      assert(i + 2 < argc);
+      filters.emplace_back(argv[i + 1], strtol(argv[i + 2], nullptr, 10));
+      i += 2;
     }
     else if (std::strcmp(argv[i], "-o") == 0) {
       outdir = argv[i + 1];
@@ -49,6 +49,13 @@ int main(int argc, const char** argv) {
     }
   }
 
+  binf::seqregx::Parser parser;
+  for (auto filter : filters) {
+    parser.parse(std::get<0>(filter));
+  }
+
+  return 1;
+
   if (outdir.empty())
     throw std::runtime_error("No output directory provided.");
 
@@ -63,7 +70,7 @@ int main(int argc, const char** argv) {
   while (has_next(iterators, files)) {
     auto keep = std::all_of(filters.begin(), filters.end(),
       [&iterators](const Filter &filter){
-      return binf::algorithms::fuzzy_bitap(iterators[std::get<2>(filter)]->sequence.c_str(), std::get<0>(filter).c_str(), std::get<1>(filter)) != -1;
+      return binf::algorithms::fuzzy_bitap(iterators[std::get<1>(filter)]->sequence.c_str(), std::get<0>(filter).c_str(), std::get<1>(filter)) != -1;
     });
     if (keep)
       for (int i = 0; i < files.size(); ++i)

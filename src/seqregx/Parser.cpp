@@ -16,15 +16,14 @@ void Parser::parse(const std::string &expression) const {
   this->parse_expression(tokens);
 }
 
-void Parser::parse_expression(std::list<Token> &tokens) const {
-  this->parse_term(tokens);
-//  auto term = this->parse_term(tokens);
-//  while (tokens.size() > 0) {
-//    term = this->parse_term(tokens);
-//  }
+Expression Parser::parse_expression(std::list<Token> &tokens) const {
+  std::vector<Term> terms;
+  while (!tokens.empty())
+    terms.emplace_back(this->parse_term(tokens));
+  return Expression(std::move(terms));
 }
 
-void Parser::parse_term(std::list<Token> &tokens) const {
+Term Parser::parse_term(std::list<Token> &tokens) const {
   std::string pattern;
   int mismatch = 0;
   Cardinality cardinality{1, 1};
@@ -42,7 +41,7 @@ void Parser::parse_term(std::list<Token> &tokens) const {
   if (tokens.front().first == "open_brace")
     cardinality = this->parse_cardinality_term(tokens);
 
-  //return Term(pattern, mismatch, cardinality);
+  return Term(pattern, mismatch, cardinality);
 }
 
 int Parser::parse_mismatch_term(std::list<Token> &tokens) const {

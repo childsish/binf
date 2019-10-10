@@ -34,9 +34,9 @@ public:
 
   void parse(const std::string &expression) const;
 private:
-  void parse_expression(std::list<Token> &tokens) const;
+  Expression parse_expression(std::list<Token> &tokens) const;
 
-  void parse_term(std::list<Token> &tokens) const;
+  Term parse_term(std::list<Token> &tokens) const;
 
   int parse_mismatch_term(std::list<Token> &tokens) const;
 
