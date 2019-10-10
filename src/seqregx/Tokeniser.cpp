@@ -5,9 +5,12 @@ namespace binf::seqregx {
 const std::unordered_map<std::string, std::string> Tokeniser::DEFAULT_TYPES{
   {"number", "0123456789"},
   {"sequence", "ACTGN"},
-  {"group_bracket", "()"},
-  {"mismatch_bracket", "<>"},
-  {"cardinality_bracket", "{}"},
+  {"open_bracket", "("},
+  {"close_bracket", ")"},
+  {"open_triangular_bracket", "<"},
+  {"close_triangular_bracket", ">"},
+  {"open_brace", "{"},
+  {"close_brace", "}"},
   {"cardinality", "+?*"},
   {"wildcard", "."},
   {"comma", ","}
