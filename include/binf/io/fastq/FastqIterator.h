@@ -3,11 +3,10 @@
 
 #include <cstring>
 #include <fstream>
-#include <iterator>
 #include <memory>
 #include <sstream>
 #include <string>
-#include <iostream>
+#include <zstr.hpp>
 
 #include "FastqEntry.h"
 
@@ -19,7 +18,7 @@ class FastqIteratorTemplate : public std::iterator<std::input_iterator_tag, Valu
 public:
   FastqIteratorTemplate() : input_stream() {}
   explicit FastqIteratorTemplate(const std::string &filename) :
-    input_stream(std::make_unique<std::ifstream>(filename))
+    input_stream(std::make_unique<zstr::ifstream>(filename))
   {
     if (input_stream->fail()) {
       std::stringstream message;
@@ -56,7 +55,6 @@ public:
     current_entry = std::make_shared<FastqEntry>(std::move(header), std::move(sequence), std::move(qualities));
 
     if (input_stream->eof()) {
-      input_stream->close();
       input_stream.reset();
     }
 
@@ -72,7 +70,7 @@ public:
   }
 
 private:
-  std::unique_ptr<std::ifstream> input_stream;
+  std::unique_ptr<zstr::ifstream> input_stream;
   std::shared_ptr<FastqEntry> current_entry;
 };
 
