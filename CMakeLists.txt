@@ -9,7 +9,8 @@ add_library(binflib
   src/io/fastq/FastqFile.cpp
   src/os/path.cpp include/binf/os/path.h)
 target_include_directories(binflib PRIVATE
-  include)
+  include
+  lib/zstr/src)
 
 add_executable(fastq
   src/fastq.cpp)
