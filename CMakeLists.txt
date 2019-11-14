@@ -9,6 +9,7 @@ target_link_libraries(zstr INTERFACE
   z)
 
 add_library(binf
+  src/Interval.cpp include/binf/Interval.h
   src/algorithms/bitap.cpp
   src/io/fastq/FastqEntry.cpp
   src/io/fastq/FastqFile.cpp
