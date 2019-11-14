@@ -25,9 +25,10 @@ target_include_directories(fastq PRIVATE
 target_link_libraries(fastq
   binf)
 
-#add_executable(binf
-#  src/main.cpp)
-#target_include_directories(binf PRIVATE
-#  include)
-#target_link_libraries(binf
-#  binflib)
+add_executable(binf-bin
+  src/binf.cpp)
+target_include_directories(binf-bin PRIVATE
+  include)
+target_link_libraries(binf-bin
+  binf)
+set_target_properties(binf-bin PROPERTIES OUTPUT_NAME binf)
