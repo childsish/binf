@@ -53,7 +53,6 @@ public:
     current_entry = std::make_shared<FastqEntry>(std::move(header), std::move(sequence), std::move(qualities));
 
     if (input_stream->eof()) {
-      input_stream->close();
       input_stream.reset();
     }
 
